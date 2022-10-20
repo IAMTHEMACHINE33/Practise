@@ -10,8 +10,30 @@ void main() {
   ));
 }
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({super.key});
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +41,26 @@ class Homepage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Register'),
       ),
-      body: Center(child: TextButton(
-        child: Text("Login"),
-        onPressed: ()async{},
-        )),
+      body: Column(
+        children: [
+          TextField(
+            controller: _email,
+            decoration: const InputDecoration(
+              hintText: 'Enter email',
+            ),
+          ),
+          TextField(
+            controller: _password,
+            decoration: const InputDecoration(
+              hintText: 'Enter password',
+            ),
+          ),
+          TextButton(
+            child: const Text("Login"),
+            onPressed: () async {},
+          ),
+        ],
+      ),
     );
   }
 }
